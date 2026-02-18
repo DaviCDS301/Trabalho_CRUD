@@ -2,29 +2,14 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>CRUD de Alunos Corrigido</title>
+<title>CRUD de Alunos</title>
 
 <style>
 
 body{
 font-family: Arial;
-background-color: #f0f0f0;
 padding: 20px;
-}
-
-h1{
-color: #333;
-}
-
-input{
-padding: 5px;
-margin: 5px;
-}
-
-button{
-padding: 5px 10px;
-margin: 5px;
-cursor: pointer;
+background-color: #f0f0f0;
 }
 
 table{
@@ -35,7 +20,13 @@ width: 100%;
 
 td, th{
 border: 1px solid #ccc;
-padding: 8px;
+padding: 10px;
+text-align: center;
+}
+
+input, button{
+padding: 5px;
+margin: 5px;
 }
 
 </style>
@@ -69,7 +60,7 @@ padding: 8px;
 
 </thead>
 
-<tbody id="tabelaAlunos"></tbody>
+<tbody id="tabela"></tbody>
 
 </table>
 
@@ -80,61 +71,62 @@ let alunos = []
 let proximoId = 1
 
 
-// CREATE
 function criarAluno(){
 
-let nome = document.getElementById("nome").value.trim()
-let idade = document.getElementById("idade").value.trim()
-let serie = document.getElementById("serie").value.trim()
+let nome = document.getElementById("nome").value
+let idade = document.getElementById("idade").value
+let serie = document.getElementById("serie").value
 
 if(nome === "" || idade === "" || serie === ""){
 
-alert("Preencha todos os campos!")
+alert("Preencha tudo")
 return
 
 }
 
-let aluno = {
+alunos.push({
 
-id: proximoId++,
+id: proximoId,
 nome: nome,
-idade: Number(idade),
+idade: idade,
 serie: serie
 
+})
+
+proximoId++
+
+listar()
+
+limpar()
+
 }
 
-alunos.push(aluno)
 
-limparCampos()
+function listar(){
 
-listarAlunos()
-
-}
-
-
-// READ
-function listarAlunos(){
-
-let tabela = document.getElementById("tabelaAlunos")
+let tabela = document.getElementById("tabela")
 
 tabela.innerHTML = ""
 
-for(let i = 0; i < alunos.length; i++){
+alunos.forEach(function(aluno){
 
-tabela.innerHTML += `
+let linha = `
 
 <tr>
 
-<td>${alunos[i].id}</td>
-<td>${alunos[i].nome}</td>
-<td>${alunos[i].idade}</td>
-<td>${alunos[i].serie}</td>
+<td>${aluno.id}</td>
+
+<td>${aluno.nome}</td>
+
+<td>${aluno.idade}</td>
+
+<td>${aluno.serie}</td>
 
 <td>
 
-<button onclick="editarAluno(${alunos[i].id})">Editar</button>
+<button onclick="editar(${aluno.id})">Editar</button>
 
-<button onclick="deletarAluno(${alunos[i].id})">Excluir</button>
+<button onclick="excluir(${aluno.id})">Excluir</button>
 
 </td>
 
@@ -142,70 +134,73 @@ tabela.innerHTML += `
 
 `
 
-}
+tabela.innerHTML += linha
+
+})
 
 }
 
 
-// UPDATE
-function editarAluno(id){
 
-for(let i = 0; i < alunos.length; i++){
+function editar(id){
 
-if(alunos[i].id === id){
+let aluno = alunos.find(function(a){
 
-let novoNome = prompt("Nome:", alunos[i].nome)
-let novaIdade = prompt("Idade:", alunos[i].idade)
-let novaSerie = prompt("Série:", alunos[i].serie)
+return a.id === id
 
-if(novoNome && novaIdade && novaSerie){
+})
 
-alunos[i].nome = novoNome.trim()
-alunos[i].idade = Number(novaIdade)
-alunos[i].serie = novaSerie.trim()
+if(!aluno){
+
+alert("Não encontrado")
+return
 
 }
 
-break
+let nome = prompt("Nome:", aluno.nome)
 
-}
+if(nome === null) return
 
-}
+let idade = prompt("Idade:", aluno.idade)
 
-listarAlunos()
+if(idade === null) return
 
-}
+let serie = prompt("Série:", aluno.serie)
+
+if(serie === null) return
 
 
-// DELETE
-function deletarAluno(id){
+aluno.nome = nome
+aluno.idade = idade
+aluno.serie = serie
 
-for(let i = 0; i < alunos.length; i++){
-
-if(alunos[i].id === id){
-
-alunos.splice(i,1)
-
-break
-
-}
-
-}
-
-listarAlunos()
+listar()
 
 }
 
 
-// LIMPAR CAMPOS
-function limparCampos(){
+
+function excluir(id){
+
+alunos = alunos.filter(function(a){
+
+return a.id !== id
+
+})
+
+listar()
+
+}
+
+
+
+function limpar(){
 
 document.getElementById("nome").value = ""
 document.getElementById("idade").value = ""
 document.getElementById("serie").value = ""
 
 }
-
 
 </script>
 
