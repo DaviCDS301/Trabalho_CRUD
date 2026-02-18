@@ -70,7 +70,7 @@ margin: 5px;
 let alunos = []
 let proximoId = 1
 
-
+//CREATE
 function criarAluno(){
 
 let nome = document.getElementById("nome").value
@@ -101,7 +101,7 @@ limpar()
 
 }
 
-
+//READ
 function listar(){
 
 let tabela = document.getElementById("tabela")
@@ -141,7 +141,7 @@ tabela.innerHTML += linha
 }
 
 
-
+//UPDATE
 function editar(id){
 
 let aluno = alunos.find(function(a){
@@ -179,7 +179,7 @@ listar()
 }
 
 
-
+//DELETE
 function excluir(id){
 
 alunos = alunos.filter(function(a){
