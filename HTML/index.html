@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matricula de Alunos.</title>
+
+    <style>
+
+        body{
+        font-family: Arial;
+        background-color: #f0f0f0;
+        padding: 20px;
+        }
+        
+        h1{
+        color: #333;
+        }
+        
+        input{
+        padding: 5px;
+        margin: 5px;
+        }
+        
+        button{
+        padding: 5px 10px;
+        margin: 5px;
+        cursor: pointer;
+        }
+        
+        table{
+        background: white;
+        border-collapse: collapse;
+        width: 100%;
+        }
+        
+        td, th{
+        border: 1px solid #ccc;
+        padding: 8px;
+        }
+        
+        </style>
+
+</head>
+<body>
+    <h1>Cadastro de Alunos</h1>
+
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="number" id="idade" placeholder="idade">
+    <input type="text" id="série" placeholder="Série">
+
+    <button onclick="criarAluno">Cadastrar</button>
+
+    <br><br>
+
+    <table>
+
+    <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Série</th>
+                <th>Ações</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="tabelaAlunos"></tbody>
+
+    </table>
+
+
+    <script>
+
+        let alunos = []
+
+        let id = 1
+
+        //Create
+        function criarAluno(){
+
+            let nome = document.getElementById("nome").value = ""
+            let idade = document.getElementById("idade").value = ""
+            let serie = document.getElementById("serie").value = ""
+
+            if(nome == "" || idade == "" || serie == ""){
+
+                alert("Preencha todos os campos!")
+                return
+
+            }
+
+            let aluno = {
+                id: id++,
+                nome: nome,
+                idade: idade,
+                serie: serie
+
+            }
+
+            alunos.push(aluno)
+
+            listarAlunos()
+
+        }
+
+        //Read
+        function listarAlunos(){
+
+            let tabela = document.getElementById("tabelaAlunos")
+
+            tabela.innerHTML = ""
+
+            for(let i = 0; i < alunos.length; i++){
+
+                tabela.innerHTML += `
+
+                <tr>
+
+                <td>${alunos[i].id}</td>
+                <td>${alunos[i].nome}</td>
+                <td>${alunos[i].idade}</td>
+                <td>${alunos[i].serie}</td>
+
+                <td>
+
+                <button onclick="editarAluno(${alunos[i].id})">Editar</button>
+
+                <button onclick="deletarAluno(${alunos[i].id})">Excluir</button>
+
+                </td>
+
+                </tr>
+
+`
+
+            }
+
+        }
+
+        //Update
+        function editarAluno(id){
+
+            let novoNome = prompt("Novo nome:")
+
+            if(novoNome == null || novoNome == ""){
+                return
+            }
+
+            for(let i = 0; i < alunos.length; i++){
+                
+                if(alunos[i].id == id){
+                    alunos[i].nome - novoNome
+
+                }
+
+            }
+
+            listarAlunos()
+
+        }
+
+        //Delete
+        function deletarAluno(id){
+
+            for(let i = 0; i < alunos.length; i++){
+                if(alunos[i].id == id){
+                    alunos.splice(i,1)
+                }
+            }
+
+            listarAlunos()
+
+        }
+
+    </script>
+
+</body>
+</html>
