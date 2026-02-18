@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>CRUD de Alunos</title>
+
+<style>
+
+body{
+font-family: Arial;
+padding: 20px;
+background-color: #f0f0f0;
+}
+
+table{
+background: white;
+border-collapse: collapse;
+width: 100%;
+}
+
+td, th{
+border: 1px solid #ccc;
+padding: 10px;
+text-align: center;
+}
+
+input, button{
+padding: 5px;
+margin: 5px;
+}
+
+</style>
+
+</head>
+<body>
+
+<h1>Cadastro de Alunos</h1>
+
+<input type="text" id="nome" placeholder="Nome">
+<input type="number" id="idade" placeholder="Idade">
+<input type="text" id="serie" placeholder="Série">
+
+<button onclick="criarAluno()">Cadastrar</button>
+
+<br><br>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Nome</th>
+<th>Idade</th>
+<th>Série</th>
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tabela"></tbody>
+
+</table>
+
+
+<script>
+
+let alunos = []
+let proximoId = 1
+
+
+function criarAluno(){
+
+let nome = document.getElementById("nome").value
+let idade = document.getElementById("idade").value
+let serie = document.getElementById("serie").value
+
+if(nome === "" || idade === "" || serie === ""){
+
+alert("Preencha tudo")
+return
+
+}
+
+alunos.push({
+
+id: proximoId,
+nome: nome,
+idade: idade,
+serie: serie
+
+})
+
+proximoId++
+
+listar()
+
+limpar()
+
+}
+
+
+function listar(){
+
+let tabela = document.getElementById("tabela")
+
+tabela.innerHTML = ""
+
+alunos.forEach(function(aluno){
+
+let linha = `
+
+<tr>
+
+<td>${aluno.id}</td>
+
+<td>${aluno.nome}</td>
+
+<td>${aluno.idade}</td>
+
+<td>${aluno.serie}</td>
+
+<td>
+
+<button onclick="editar(${aluno.id})">Editar</button>
+
+<button onclick="excluir(${aluno.id})">Excluir</button>
+
+</td>
+
+</tr>
+
+`
+
+tabela.innerHTML += linha
+
+})
+
+}
+
+
+
+function editar(id){
+
+let aluno = alunos.find(function(a){
+
+return a.id === id
+
+})
+
+if(!aluno){
+
+alert("Não encontrado")
+return
+
+}
+
+let nome = prompt("Nome:", aluno.nome)
+
+if(nome === null) return
+
+let idade = prompt("Idade:", aluno.idade)
+
+if(idade === null) return
+
+let serie = prompt("Série:", aluno.serie)
+
+if(serie === null) return
+
+
+aluno.nome = nome
+aluno.idade = idade
+aluno.serie = serie
+
+listar()
+
+}
+
+
+
+function excluir(id){
+
+alunos = alunos.filter(function(a){
+
+return a.id !== id
+
+})
+
+listar()
+
+}
+
+
+
+function limpar(){
+
+document.getElementById("nome").value = ""
+document.getElementById("idade").value = ""
+document.getElementById("serie").value = ""
+
+}
+
+</script>
+
+</body>
+</html>
