@@ -1,183 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matricula de Alunos.</title>
+<meta charset="UTF-8">
+<title>CRUD de Alunos Corrigido</title>
 
-    <style>
+<style>
 
-        body{
-        font-family: Arial;
-        background-color: #f0f0f0;
-        padding: 20px;
-        }
-        
-        h1{
-        color: #333;
-        }
-        
-        input{
-        padding: 5px;
-        margin: 5px;
-        }
-        
-        button{
-        padding: 5px 10px;
-        margin: 5px;
-        cursor: pointer;
-        }
-        
-        table{
-        background: white;
-        border-collapse: collapse;
-        width: 100%;
-        }
-        
-        td, th{
-        border: 1px solid #ccc;
-        padding: 8px;
-        }
-        
-        </style>
+body{
+font-family: Arial;
+background-color: #f0f0f0;
+padding: 20px;
+}
+
+h1{
+color: #333;
+}
+
+input{
+padding: 5px;
+margin: 5px;
+}
+
+button{
+padding: 5px 10px;
+margin: 5px;
+cursor: pointer;
+}
+
+table{
+background: white;
+border-collapse: collapse;
+width: 100%;
+}
+
+td, th{
+border: 1px solid #ccc;
+padding: 8px;
+}
+
+</style>
 
 </head>
 <body>
-    <h1>Cadastro de Alunos</h1>
 
-    <input type="text" id="nome" placeholder="Nome">
-    <input type="number" id="idade" placeholder="idade">
-    <input type="text" id="série" placeholder="Série">
+<h1>Cadastro de Alunos</h1>
 
-    <button onclick="criarAluno">Cadastrar</button>
+<input type="text" id="nome" placeholder="Nome">
+<input type="number" id="idade" placeholder="Idade">
+<input type="text" id="serie" placeholder="Série">
 
-    <br><br>
+<button onclick="criarAluno()">Cadastrar</button>
 
-    <table>
+<br><br>
 
-    <thead>
+<table>
 
-            <tr>
+<thead>
 
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Série</th>
-                <th>Ações</th>
+<tr>
 
-            </tr>
+<th>ID</th>
+<th>Nome</th>
+<th>Idade</th>
+<th>Série</th>
+<th>Ações</th>
 
-        </thead>
+</tr>
 
-        <tbody id="tabelaAlunos"></tbody>
+</thead>
 
-    </table>
+<tbody id="tabelaAlunos"></tbody>
+
+</table>
 
 
-    <script>
+<script>
 
-        let alunos = []
+let alunos = []
+let proximoId = 1
 
-        let id = 1
 
-        //Create
-        function criarAluno(){
+// CREATE
+function criarAluno(){
 
-            let nome = document.getElementById("nome").value = ""
-            let idade = document.getElementById("idade").value = ""
-            let serie = document.getElementById("serie").value = ""
+let nome = document.getElementById("nome").value.trim()
+let idade = document.getElementById("idade").value.trim()
+let serie = document.getElementById("serie").value.trim()
 
-            if(nome == "" || idade == "" || serie == ""){
+if(nome === "" || idade === "" || serie === ""){
 
-                alert("Preencha todos os campos!")
-                return
+alert("Preencha todos os campos!")
+return
 
-            }
+}
 
-            let aluno = {
-                id: id++,
-                nome: nome,
-                idade: idade,
-                serie: serie
+let aluno = {
 
-            }
+id: proximoId++,
+nome: nome,
+idade: Number(idade),
+serie: serie
 
-            alunos.push(aluno)
+}
 
-            listarAlunos()
+alunos.push(aluno)
 
-        }
+limparCampos()
 
-        //Read
-        function listarAlunos(){
+listarAlunos()
 
-            let tabela = document.getElementById("tabelaAlunos")
+}
 
-            tabela.innerHTML = ""
 
-            for(let i = 0; i < alunos.length; i++){
+// READ
+function listarAlunos(){
 
-                tabela.innerHTML += `
+let tabela = document.getElementById("tabelaAlunos")
 
-                <tr>
+tabela.innerHTML = ""
 
-                <td>${alunos[i].id}</td>
-                <td>${alunos[i].nome}</td>
-                <td>${alunos[i].idade}</td>
-                <td>${alunos[i].serie}</td>
+for(let i = 0; i < alunos.length; i++){
 
-                <td>
+tabela.innerHTML += `
 
-                <button onclick="editarAluno(${alunos[i].id})">Editar</button>
+<tr>
 
-                <button onclick="deletarAluno(${alunos[i].id})">Excluir</button>
+<td>${alunos[i].id}</td>
+<td>${alunos[i].nome}</td>
+<td>${alunos[i].idade}</td>
+<td>${alunos[i].serie}</td>
 
-                </td>
+<td>
 
-                </tr>
+<button onclick="editarAluno(${alunos[i].id})">Editar</button>
+
+<button onclick="deletarAluno(${alunos[i].id})">Excluir</button>
+
+</td>
+
+</tr>
 
 `
 
-            }
+}
 
-        }
+}
 
-        //Update
-        function editarAluno(id){
 
-            let novoNome = prompt("Novo nome:")
+// UPDATE
+function editarAluno(id){
 
-            if(novoNome == null || novoNome == ""){
-                return
-            }
+for(let i = 0; i < alunos.length; i++){
 
-            for(let i = 0; i < alunos.length; i++){
-                
-                if(alunos[i].id == id){
-                    alunos[i].nome - novoNome
+if(alunos[i].id === id){
 
-                }
+let novoNome = prompt("Nome:", alunos[i].nome)
+let novaIdade = prompt("Idade:", alunos[i].idade)
+let novaSerie = prompt("Série:", alunos[i].serie)
 
-            }
+if(novoNome && novaIdade && novaSerie){
 
-            listarAlunos()
+alunos[i].nome = novoNome.trim()
+alunos[i].idade = Number(novaIdade)
+alunos[i].serie = novaSerie.trim()
 
-        }
+}
 
-        //Delete
-        function deletarAluno(id){
+break
 
-            for(let i = 0; i < alunos.length; i++){
-                if(alunos[i].id == id){
-                    alunos.splice(i,1)
-                }
-            }
+}
 
-            listarAlunos()
+}
 
-        }
+listarAlunos()
 
-    </script>
+}
+
+
+// DELETE
+function deletarAluno(id){
+
+for(let i = 0; i < alunos.length; i++){
+
+if(alunos[i].id === id){
+
+alunos.splice(i,1)
+
+break
+
+}
+
+}
+
+listarAlunos()
+
+}
+
+
+// LIMPAR CAMPOS
+function limparCampos(){
+
+document.getElementById("nome").value = ""
+document.getElementById("idade").value = ""
+document.getElementById("serie").value = ""
+
+}
+
+
+</script>
 
 </body>
 </html>
