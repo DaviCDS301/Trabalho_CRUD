@@ -1,154 +1,155 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<title>CRUD de Alunos</title>
+  <html lang="pt-br">
+  <head>
+  <meta charset="UTF-8">
+  <title>CRUD de Alunos</title>
 
-<style>
+  <style>
 
-body{
-font-family: Arial;
-padding: 20px;
-background-color: #f0f0f0;
-}
+  body{
+    font-family: Arial;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
 
-table{
-background: white;
-border-collapse: collapse;
-width: 100%;
-}
+  table{
+    background: white;
+    border-collapse: collapse;
+    width: 100%;
+  }
 
-td, th{
-border: 1px solid #ccc;
-padding: 10px;
-text-align: center;
-}
+  td, th{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
 
-input, button{
-padding: 5px;
-margin: 5px;
-}
+  input, button{
+    padding: 5px;
+    margin: 5px;
+  }
 
-</style>
+  </style>
 
 </head>
 <body>
 
-<h1>Cadastro de Alunos</h1>
+  <h1>Cadastro de Alunos</h1>
 
-<input type="text" id="nome" placeholder="Nome">
-<input type="number" id="idade" placeholder="Idade">
-<input type="text" id="serie" placeholder="Série">
+  <input type="text" id="nome" placeholder="Nome">
+  <input type="number" id="idade" placeholder="Idade">
+  <input type="text" id="serie" placeholder="Série">
 
-<button onclick="criarAluno()">Cadastrar</button>
+  <button onclick="criarAluno()">Cadastrar</button>
 
-<br><br>
+  <br><br>
 
-<table>
+  <table>
 
-<thead>
+  <thead>
 
-<tr>
+      <tr>
 
-<th>ID</th>
-<th>Nome</th>
-<th>Idade</th>
-<th>Série</th>
-<th>Ações</th>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Série</th>
+        <th>Ações</th>
 
-</tr>
+      </tr>
 
-</thead>
+   </thead>
 
-<tbody id="tabela"></tbody>
+    <tbody id="tabela"></tbody>
 
-</table>
+  </table>
 
 
-<script>
+  <script>
 
-let alunos = []
-let proximoId = 1
+    let alunos = []
+    let proximoId = 1
 
 //CREATE
-function criarAluno(){
+    function criarAluno(){
 
-let nome = document.getElementById("nome").value
-let idade = document.getElementById("idade").value
-let serie = document.getElementById("serie").value
+      let nome = document.getElementById("nome").value
+      let idade = document.getElementById("idade").value
+      let serie = document.getElementById("serie").value
 
-if(nome === "" || idade === "" || serie === ""){
+      if(nome === "" || idade === "" || serie === ""){
 
-alert("Preencha tudo")
-return
+        alert("Preencha tudo")
+        return
 
-}
+      }
 
-alunos.push({
+      alunos.push({
 
-id: proximoId,
-nome: nome,
-idade: idade,
-serie: serie
+        id: proximoId,
+        nome: nome,
+        idade: idade,
+        serie: serie
 
-})
+      })
 
-proximoId++
+      proximoId++
 
-listar()
+      listar()
 
-limpar()
+      limpar()
 
-}
+    }
 
 //READ
-function listar(){
+  function listar(){
 
-let tabela = document.getElementById("tabela")
+    let tabela = document.getElementById("tabela")
 
-tabela.innerHTML = ""
+    tabela.innerHTML = ""
 
-alunos.forEach(function(aluno){
+    alunos.forEach(function(aluno){
 
-let linha = `
+      let linha = `
 
-<tr>
+      <tr>
 
-<td>${aluno.id}</td>
+        <td>${aluno.id}</td>
 
-<td>${aluno.nome}</td>
+        <td>${aluno.nome}</td>
 
-<td>${aluno.idade}</td>
+        <td>${aluno.idade}</td>
 
-<td>${aluno.serie}</td>
+        <td>${aluno.serie}</td>
 
-<td>
+        <td>
 
-<button onclick="editar(${aluno.id})">Editar</button>
+        <button onclick="editar(${aluno.id})">Editar</button>
 
-<button onclick="excluir(${aluno.id})">Excluir</button>
+        <button onclick="excluir(${aluno.id})">Excluir</button>
 
-</td>
+        </td>
 
-</tr>
+        </tr>
 
 `
 
-tabela.innerHTML += linha
+        tabela.innerHTML += linha
 
-})
+    })
 
-}
+  }
 
 
 //UPDATE
 function editar(id){
 
-let aluno = alunos.find(function(a){
-
+let aluno = alunos.find(function(aluno){
+console.log(id)
 return a.id === id
-
 })
+console.log(aluno)
+
 
 if(!aluno){
 
