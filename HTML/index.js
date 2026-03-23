@@ -12,8 +12,8 @@ app.post("/alunos", (req, res) => {
 
   const { nome, idade, serie } = req.body
 
-  if(!nome || !idade || !serie){
-    return res.status(400).json({erro: "Preencha todos os campos"})
+  if (typeof nome !== "string" || typeof idade !== "number" || typeof serie !== "string") {
+    return res.status(400).json({ erro: "Dados inválidos" })
   }
 
   const aluno = {
@@ -41,13 +41,15 @@ app.get("/alunos", (req, res) => {
 // GET - Buscar aluno por ID
 app.get("/alunos/:id", (req, res) => {
 
-  const id = parseInt(req.params.id)
+  const id = Number(req.params.id)
 
   const aluno = alunos.find(a => a.id === id)
 
-  if(!aluno){
-    return res.status(404).json({erro: "Aluno não encontrado"})
+  if (isNaN(id)) {
+    return res.status(400).json({ erro: "ID inválido" })
   }
+
+
 
   res.json(aluno)
 
@@ -67,9 +69,9 @@ app.put("/alunos/:id", (req, res) => {
 
   const { nome, idade, serie } = req.body
 
-  aluno.nome = nome || aluno.nome
-  aluno.idade = idade || aluno.idade
-  aluno.serie = serie || aluno.serie
+  aluno.nome = nome ?? aluno.nome
+  aluno.idade = idade ?? aluno.idade
+  aluno.serie = serie ?? aluno.serie
 
   res.json(aluno)
 
