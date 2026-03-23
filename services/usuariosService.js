@@ -11,7 +11,7 @@ async function listarAlunos() {
 
     return resultado.rows;
 }
-
+//a
 async function buscarAlunoPorId(id) {
 
     const resultado = await pool.query(
