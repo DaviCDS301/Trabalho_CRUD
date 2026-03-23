@@ -79,7 +79,7 @@ async function deletarAluno(req, res) {
     res.status(204).send();
 
 }
-
+//a
 async function alunosTotal(req, res) {
     try {
       const total = await usuariosService.contarUsuarios();

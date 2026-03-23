@@ -9,7 +9,7 @@ async function carregarUsuarios() {
   mensagem.textContent = "Carregando...";
 
   try {
-
+//a
     const resposta = await fetch("/api/usuarios");
 
     if (!resposta.ok) {
