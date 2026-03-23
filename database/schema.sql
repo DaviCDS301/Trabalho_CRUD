@@ -1,8 +1,8 @@
 CREATE DATABASE sistema_escola;
 
 CREATE TABLE alunos (
-	id serial PRIMARY KEY,
-	nome VARCHAR(100),
+	id INTEGER PRIMARY KEY,
+	nome VARCHAR(100) NOT NULL,
 	idade INTEGER,
 	serie VARCHAR(100)
 );
