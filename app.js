@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/api/usuarios", usuariosRoutes);
-//a
+
 app.listen(3000, () => {
     console.log("Servidor rodando em http://localhost:3000");
 });
