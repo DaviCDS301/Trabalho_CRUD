@@ -13,7 +13,7 @@ async function carregarUsuarios() {
     const resposta = await fetch("/api/usuarios");
 
     if (!resposta.ok) {
-      throw new Error("Erro ao buscar usuários");
+      throw new Error("Erro ao buscar alunos");
     }
 
     const usuarios = await resposta.json();
@@ -24,7 +24,7 @@ async function carregarUsuarios() {
 
   } catch (erro) {
 
-    mensagem.textContent = "Erro ao carregar usuários.";
+    mensagem.textContent = "Erro ao carregar alunos.";
     mensagem.style.color = "red";
     console.error(erro);
 

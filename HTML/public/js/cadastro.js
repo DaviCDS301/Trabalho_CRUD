@@ -15,6 +15,7 @@ form.addEventListener("submit", async function (event) {
     serie
   };
 
+  console.log(usuario)
   try {
 
     const resposta = await fetch("/api/usuarios", {
@@ -26,12 +27,14 @@ form.addEventListener("submit", async function (event) {
     });
 
     if (!resposta.ok) {
-      throw new Error("Erro ao cadastrar usuário");
+      const erroTexto = await resposta.text();
+      console.error("Erro do servidor:", erroTexto);
+      throw new Error("Erro ao cadastrar aluno");
     }
 
     const dados = await resposta.json();
 
-    mensagem.textContent = `Usuário ${dados.nome} cadastrado com sucesso!`;
+    mensagem.textContent = `Aluno ${dados.nome} cadastrado com sucesso!`;
     mensagem.style.color = "green";
 
     form.reset();

@@ -12,7 +12,7 @@ async function buscarAlunoPorId(req, res) {
 
     const id = Number(req.params.id);
 
-    const usuario = await usuariosService.buscarUsuarioPorId(id);
+    const usuario = await usuariosService.buscarAlunoPorId(id);
 
     if (!usuario) {
         return res.status(404).json({
@@ -30,7 +30,7 @@ async function criarAluno(req, res) {
 
         const { nome, idade, serie } = req.body;
 
-        const usuario = await usuariosService.criarUsuario(nome, idade, serie);
+        const usuario = await usuariosService.criarAluno(nome, idade, serie);
 
         res.status(201).json({
             mensagem: "Usuário criado com sucesso",
@@ -52,7 +52,7 @@ async function atualizarAluno(req, res) {
     const id = Number(req.params.id);
     const { nome, idade, serie } = req.body;
 
-    const usuario = await usuariosService.atualizarUsuario(id, nome, idade, serie);
+    const usuario = await usuariosService.atualizarAluno(id, nome, idade, serie);
 
     if (!usuario) {
         return res.status(404).json({
@@ -68,7 +68,7 @@ async function deletarAluno(req, res) {
 
     const id = Number(req.params.id);
 
-    const removido = await usuariosService.deletarUsuario(id);
+    const removido = await usuariosService.deletarAluno(id);
 
     if (!removido) {
         return res.status(404).json({
