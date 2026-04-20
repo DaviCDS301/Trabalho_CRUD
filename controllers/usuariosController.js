@@ -2,7 +2,7 @@ const usuariosService = require("../services/usuariosService");
 
 async function listarAlunos(req, res) {
 
-    const usuarios = await usuariosService.listarUsuarios();
+    const usuarios = await usuariosService.listarAlunos();
 
     res.json(usuarios);
 
