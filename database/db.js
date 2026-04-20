@@ -6,7 +6,7 @@ const pool = new Pool({
   host: 'localhost',
   database:'sistema_escola',
   password:'root',
-  port: 5432,
+  port: 5432
 });
-//a
+
 module.exports = pool;

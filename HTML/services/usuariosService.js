@@ -48,9 +48,9 @@ async function atualizarAluno(id, nome, idade, serie) {
         `
         UPDATE alunos
         SET nome = COALESCE($1, nome),
-            idade = COALESCE($2, idade)
+            idade = COALESCE($2, idade),
             serie = COALESCE($3, serie)
-        WHERE id = $3
+        WHERE id = $4
         RETURNING *
         `,
         [nome, idade, serie, id]
