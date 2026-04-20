@@ -14,7 +14,7 @@ form.addEventListener("submit", async function (event) {
     idade: Number(idade),
     serie
   };
-//a
+
   console.log(usuario)
   try {
 
