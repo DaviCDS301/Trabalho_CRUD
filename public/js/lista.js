@@ -2,9 +2,9 @@ const lista = document.getElementById("lista");
 const mensagem = document.getElementById("mensagem");
 const botao = document.getElementById("btnAtualizar");
 
-botao.addEventListener("click", carregarUsuarios);
+botao.addEventListener("click", listarAlunos);
 
-async function carregarUsuarios() {
+async function listarAlunos() {
 
   mensagem.textContent = "Carregando...";
 
@@ -53,4 +53,4 @@ async function carregarUsuarios() {
 
 }
 
-carregarUsuarios();
+listarAlunos();
